@@ -10,16 +10,14 @@ export interface MedicineSchedule {
   updated_at?: string;
 }
 
-export type DispensingStatus = 'dispensed' | 'failed' | 'missed' | 'scheduled';
+export type DispensingStatus = 'success' | 'failed';
 
 export interface DispensingHistory {
   id: string;
-  medicine_id: string;
   medicine_name: string;
-  dispensed_at: string;
   position: Position;
+  dispensed_at: string;
   status: DispensingStatus;
-  created_at: string;
 }
 
 export interface DeviceStatus {

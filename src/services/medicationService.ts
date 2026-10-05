@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import type { MedicineSchedule } from '../types';
+import type { MedicineSchedule, DispensingHistory } from '../types';
 
 export const medicationService = {
   async getSchedules(): Promise<MedicineSchedule[]> {
@@ -57,5 +57,20 @@ export const medicationService = {
       console.error('Error deleting schedule:', error);
       throw error;
     }
+  },
+
+  async getDispensingHistory(): Promise<DispensingHistory[]> {
+    const { data, error } = await supabase
+      .from('dispensing_history')
+      .select('*')
+      .order('dispensed_at', { ascending: false })
+      .limit(20);
+
+    if (error) {
+      console.error('Error fetching dispensing history:', error);
+      throw error;
+    }
+
+    return data || [];
   }
 };
